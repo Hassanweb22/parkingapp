@@ -17,18 +17,15 @@ app.use('/users', userRouter)
 
 const Port = process.env.PORT || 5000;
 
-const publicPath = path.join(__dirname, "..", "..", "bootcamperproject", "build");
+const publicPath = path.join(__dirname, "client", "build");
 console.log("publicPath", publicPath);
 
 if (process.env.NODE_ENV == "production") {
     app.use(express.static(publicPath));
+
     app.get("*", (req, res) => {
         res.sendFile(path.resolve(publicPath, 'index.html'));
     })
 }
-
-app.get('*', (req, res) => {
-    res.sendFile(path.join(publicPath, 'index.html'));
-});
 
 app.listen(Port, () => console.log(`Server listening on port ${Port}!`))
